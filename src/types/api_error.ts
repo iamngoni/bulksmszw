@@ -20,7 +20,7 @@ export default class ApiError {
     });
   }
 
-  fromJson(data: string): ApiErrorType {
+  fromJson(data: string): ApiError {
     return JSON.parse(data);
   }
 }

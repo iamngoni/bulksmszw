@@ -17,7 +17,7 @@ export default class ApiSuccess {
     });
   }
 
-  fromJson(data: string): ApiSuccessType {
+  fromJson(data: string): ApiSuccess {
     return JSON.parse(data);
   }
 }
@@ -53,7 +53,7 @@ export class Data {
     });
   }
 
-  fromJson(data: string): DataType {
+  fromJson(data: string): Data {
     return JSON.parse(data);
   }
 }
