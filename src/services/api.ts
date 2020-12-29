@@ -1,6 +1,7 @@
 import axios from "axios";
 import ApiCredits from "../types/api_credits";
 import ApiError from "../types/api_error";
+import { ApiErrorType } from "../types/api_error";
 import ApiResponse from "../types/api_response";
 import ApiSuccess from "../types/api_success";
 import { SMSRESPONSE } from "../types/sms_response";
@@ -28,7 +29,24 @@ export default class Api {
       let result = await axios.post(url);
 
       if (result.status === 200) {
+        let response = this.checkApiResponseError(result.data)
 
+        if (response == null) {
+          return new ApiResponse({
+            statusresponse: SMSRESPONSE.FAIL,
+            api_response: response,
+            message: 'Failed to send bulksmsweb message'
+          });
+        } else {
+          if (response instanceof ApiErrorType) {
+            const error: ApiError = response;
+            return new ApiResponse({
+              statusresponse: SMSRESPONSE.API_ERROR,
+              api_response: response,
+              message: error.error_string
+            });
+          }
+        }
       }
 
     } catch (error) {
@@ -51,6 +69,8 @@ export default class Api {
 
       if (resp.toString().includes('data')) {
         return new ApiSuccess(resp).fromJson(response);
+      } else {
+        return null;
       }
     }
   }

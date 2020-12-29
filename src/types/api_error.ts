@@ -1,6 +1,6 @@
 export default class ApiError {
-  status: String;
-  error: String;
+  status: string;
+  error: string;
   error_string: any;
   timestamp: Number;
 
@@ -26,8 +26,8 @@ export default class ApiError {
 }
 
 export interface ApiErrorType {
-  status: String,
-  error: String,
+  status: string,
+  error: string,
   error_string: any,
   timestamp: Number
 }
