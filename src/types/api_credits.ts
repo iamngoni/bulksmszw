@@ -1,6 +1,6 @@
 export default class ApiCredits {
-  status: String;
-  error: String;
+  status: string;
+  error: string;
   error_string: any;
   timestamp: any;
   credit: any;
@@ -28,9 +28,9 @@ export default class ApiCredits {
 }
 
 export interface ApiCredit {
-  status: String,
-  error: String,
-  error_string: String,
+  status: string,
+  error: string,
+  error_string: string,
   timestamp: any,
   credit: any
 }

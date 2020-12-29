@@ -38,7 +38,7 @@ export default class Api {
             message: 'Failed to send bulksmsweb message'
           });
         } else {
-          if (typeof response === ApiError) {
+          if (response instanceof ApiError) {
             const error: ApiError = response;
             return new ApiResponse({
               statusresponse: SMSRESPONSE.API_ERROR,
@@ -58,7 +58,7 @@ export default class Api {
     }
   }
 
-  private checkApiResponseError(response: any) {
+  private checkApiResponseError(response: any) : any{
     let resp = JSON.parse(response);
     if (resp.error_string != null) {
       return new ApiError(resp).fromJson(response);
