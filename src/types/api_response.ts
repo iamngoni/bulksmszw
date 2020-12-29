@@ -1,9 +1,7 @@
-import SMS_RESPONSE from "./sms_response";
-
 export default class ApiResponse {
-  statusresponse: SMS_RESPONSE;
+  statusresponse: string;
   api_response: any;
-  message: String;
+  message: string;
 
   constructor(response: ApiResponseType) {
     this.statusresponse = response.statusresponse;
@@ -21,7 +19,7 @@ export default class ApiResponse {
 }
 
 export interface ApiResponseType {
-  statusresponse: SMS_RESPONSE,
-  api_response: String,
-  message: String
+  statusresponse: string,
+  api_response: any,
+  message: string
 }

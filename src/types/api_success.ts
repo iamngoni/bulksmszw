@@ -8,6 +8,18 @@ export default class ApiSuccess {
     this.errorString = response.errorString;
     this.timestamp = response.timestamp;
   }
+
+  toJson() : string {
+    return JSON.stringify({
+      data: this.data,
+      error_string: this.errorString,
+      timestamp: this.timestamp
+    });
+  }
+
+  fromJson(data: string): ApiSuccessType {
+    return JSON.parse(data);
+  }
 }
 
 export interface ApiSuccessType {
