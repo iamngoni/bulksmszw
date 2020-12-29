@@ -22,7 +22,7 @@ export default class ApiCredits {
     });
   }
 
-  fromJson(data: string): ApiCredit {
+  fromJson(data: string): ApiCredits {
     return JSON.parse(data);
   }
 }
