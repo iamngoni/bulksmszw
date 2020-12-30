@@ -28,7 +28,8 @@ export default class Api {
       let result = await axios.post(url);
 
       if (result.status === 200) {
-        let response = this.checkApiResponseError(result.data)
+        console.log(result.data)
+        let response = this.checkApiResponseError(result.data);
 
         if (response == null) {
           return new ApiResponse({
@@ -49,11 +50,11 @@ export default class Api {
           if (response instanceof ApiSuccess) {
             const success: ApiSuccess = response;
 
-            if (success.data.status === 'ERR' && success.data.error === 200) { 
+            if (success.data.status === 'ERR' && success.data.error === '200') { 
               return new ApiResponse({
                 statusresponse: SMSRESPONSE.API_ERROR,
                 api_response: success,
-                message: 'insufficients credits'
+                message: 'insufficients credit'
               });
             } else {
               return new ApiResponse({
@@ -81,10 +82,11 @@ export default class Api {
       }
 
     } catch (error) {
+      console.log(error);
       return new ApiResponse({
         statusresponse: SMSRESPONSE.ERROR,
         api_response: null,
-        message: 'Error sending bulksmszw request: Error ' + error.toString()
+        message: 'Error sending bulksmszw request: Error -> ' + error.toString()
       });
     }
 
@@ -95,20 +97,27 @@ export default class Api {
     });
   }
 
-  private checkApiResponseError(response: any) : any{
-    let resp = JSON.parse(response);
-    if (resp.error_string != null) {
-      return new ApiError(resp).fromJson(response);
-    } else {
-      if (resp.toString().includes('credit')) {
-        return new ApiCredits(resp).fromJson(response);
-      }
-
-      if (resp.toString().includes('data')) {
-        return new ApiSuccess(resp).fromJson(response);
+  private checkApiResponseError(response: any){
+    try {
+      if (response.hasOwnProperty('error_string') && response.error_string != null) {
+        console.log('Processing error response from API');
+        return new ApiError({error_string: response.error_string, error: response.error, status: response.status, timestamp: response.timestamp});
       } else {
-        return null;
+        if (response.hasOwnProperty('credit')) {
+          console.log('Processing credit response for API');
+          return new ApiCredits({ status: response.status, error: response.error, error_string: response.error_string, timestamp: response.timestamp, credit: response.credit});
+        }
+
+        if (response.hasOwnProperty('data')) {
+          console.log('Processing success response from API');
+          return new ApiSuccess({error_string: response.error_string, data: response.data[0], timestamp: response.timestamp});
+        } else {
+          throw Error("Unknown response");
+        }
       }
+    } catch (error) {
+      console.log(error)
+      return null;
     }
   }
 }

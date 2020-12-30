@@ -11,20 +11,6 @@ export default class ApiCredits {
     this.timestamp = data.timestamp;
     this.credit = data.credit;
   }
-
-  toJson() : string {
-    return JSON.stringify({
-      status: this.status,
-      error: this.error,
-      error_string: this.error_string,
-      timestamp: this.timestamp,
-      credit: this.credit
-    });
-  }
-
-  fromJson(data: string): ApiCredits {
-    return JSON.parse(data);
-  }
 }
 
 export interface ApiCredit {

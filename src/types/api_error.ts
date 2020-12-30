@@ -10,19 +10,6 @@ export default class ApiError {
     this.error_string = data.error_string;
     this.timestamp = data.timestamp;
   }
-
-  toJson() : string {
-    return JSON.stringify({
-      status: this.status,
-      error: this.error,
-      error_string: this.error_string,
-      timestamp: this.timestamp
-    });
-  }
-
-  fromJson(data: string): ApiError {
-    return JSON.parse(data);
-  }
 }
 
 export interface ApiErrorType {
