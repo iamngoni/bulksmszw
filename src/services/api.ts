@@ -46,7 +46,39 @@ export default class Api {
               message: error.error_string
             });
           }
+
+          if (response instanceof ApiSuccess) {
+            const success: ApiSuccess = response;
+
+            if (success.data.status === 'ERR' && success.data.error === 200) { 
+              return new ApiResponse({
+                statusresponse: SMSRESPONSE.API_ERROR,
+                api_response: success,
+                message: 'insufficients credits'
+              });
+            } else {
+              return new ApiResponse({
+                statusresponse: SMSRESPONSE.SUCCESS,
+                api_response: success,
+                message: 'success'
+              });
+            }
+          }
+          
+          if (response instanceof ApiCredits) {
+            return new ApiResponse({
+              statusresponse: SMSRESPONSE.SUCCESS,
+              api_response: response,
+              message: 'success credit'
+            });
+          }
         }
+      } else {
+        return new ApiResponse({
+          statusresponse: SMSRESPONSE.ERROR,
+          api_response: null,
+          message: result.data
+        });
       }
 
     } catch (error) {
