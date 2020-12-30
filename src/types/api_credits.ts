@@ -4,6 +4,11 @@ export default class ApiCredits {
   error_string: any;
   timestamp: any;
   credit: any;
+
+  /**
+   *
+   * @param data {ApiCredit}
+   */
   constructor(public data: ApiCredit) {
     this.status = data.status;
     this.error = data.error;
@@ -14,9 +19,9 @@ export default class ApiCredits {
 }
 
 export interface ApiCredit {
-  status: string,
-  error: string,
-  error_string: string,
-  timestamp: any,
-  credit: any
+  status: string;
+  error: string;
+  error_string: string;
+  timestamp: any;
+  credit: any;
 }

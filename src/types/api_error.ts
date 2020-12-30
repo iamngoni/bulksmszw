@@ -4,6 +4,10 @@ export default class ApiError {
   error_string: any;
   timestamp: Number;
 
+  /**
+   *
+   * @param data {ApiErrorType}
+   */
   constructor(data: ApiErrorType) {
     this.status = data.status;
     this.error = data.error;
@@ -13,8 +17,8 @@ export default class ApiError {
 }
 
 export interface ApiErrorType {
-  status: string,
-  error: string,
-  error_string: any,
-  timestamp: Number
+  status: string;
+  error: string;
+  error_string: any;
+  timestamp: Number;
 }

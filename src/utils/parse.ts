@@ -13,7 +13,7 @@ export default class Parse {
     return this.webUrl + this.payload();
   }
 
-  private payload() : string {
+  private payload(): string {
     return '&to=' + this.recipients() + '&msg=' + this.body();
   }
 
@@ -26,12 +26,20 @@ export default class Parse {
   }
 
   public toString(): string {
-    return 'Parse -> (webUrl: ' + this.webUrl + ', quoteBody: ' + this.quoteBody + ', quoteRecipients: ' + this.quoteRecipients + ')';
+    return (
+      'Parse -> (webUrl: ' +
+      this.webUrl +
+      ', quoteBody: ' +
+      this.quoteBody +
+      ', quoteRecipients: ' +
+      this.quoteRecipients +
+      ')'
+    );
   }
 }
 
 export interface ParseType {
-  webUrl: string,
-  quoteBody: string,
-  quoteRecipients: string
+  webUrl: string;
+  quoteBody: string;
+  quoteRecipients: string;
 }

@@ -1,13 +1,13 @@
 export default interface SMS_RESPONSE {
-  SUCCESS: string,
-  ERROR: string,
-  FAIL: string,
-  API_ERROR: string
+  SUCCESS: string;
+  ERROR: string;
+  FAIL: string;
+  API_ERROR: string;
 }
 
-export const SMSRESPONSE : SMS_RESPONSE = Object.freeze({
+export const SMSRESPONSE: SMS_RESPONSE = Object.freeze({
   SUCCESS: 'success',
   ERROR: 'error',
   FAIL: 'fail',
-  API_ERROR: 'api_error'
-})
+  API_ERROR: 'api_error',
+});
