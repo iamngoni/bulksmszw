@@ -1,7 +1,6 @@
 import axios from "axios";
 import ApiCredits from "../types/api_credits";
 import ApiError from "../types/api_error";
-import { ApiErrorType } from "../types/api_error";
 import ApiResponse from "../types/api_response";
 import ApiSuccess from "../types/api_success";
 import { SMSRESPONSE } from "../types/sms_response";
