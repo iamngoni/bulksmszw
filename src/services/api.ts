@@ -18,7 +18,7 @@ export default class Api {
     this.message = apiData.message;
   }
 
-  async sendRequest(): ApiResponse {
+  async sendRequest(): Promise<ApiResponse> {
     try {
       const url: string = new Parse({
         quoteBody: this.message,
@@ -88,6 +88,12 @@ export default class Api {
         message: 'Error sending bulksmszw request: Error ' + error.toString()
       });
     }
+
+    return new ApiResponse({
+      statusresponse: SMSRESPONSE.ERROR,
+      api_response: null,
+      message: 'null: request not processed'
+    });
   }
 
   private checkApiResponseError(response: any) : any{
