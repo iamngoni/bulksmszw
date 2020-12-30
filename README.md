@@ -1,3 +1,4 @@
+
 # NODEJS Library for  [BulkSmsWeb Zimbabwe](https://bulksmsweb.com)
 
 ## Sign up and sign in to [BulkSmsWeb Portal](https://portal.bulksmsweb.com) to get your web service token
@@ -24,7 +25,7 @@ $ npm install --save bulksmszw
 ### Importing library
 
 ```javascript
-import { BulkSmsZw, BulkSmsZwApiResponse } from 'bulksmszw';
+const BulkSmsZw = require("bulksmszw").BulkSmsZw;
 ```
 
 Create an instance of the BulkSmsZw class and setting the bulkSmsWebKey and bulkSmsWebName
