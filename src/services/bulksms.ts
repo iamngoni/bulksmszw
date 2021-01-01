@@ -23,7 +23,10 @@ export default class BulkSmsZw {
    * @returns [BulkSmsZwApiResponse]
    */
   async send(input: messageInput): Promise<ApiResponse> {
-    let url = this.text_op();
+
+
+
+    let url = this.sms_op();
 
     if (input.credits) {
       url = this.credit_op();
@@ -38,7 +41,7 @@ export default class BulkSmsZw {
     return resp;
   }
 
-  private text_op(): string {
+  private sms_op(): string {
     return this.BULKSMS_WEBSERVICE_URL + '&u=' + this.name + '&h=' + this.key + '&op=' + this.SEND_SMS_OPERATION;
   }
 
