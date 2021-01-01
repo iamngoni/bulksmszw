@@ -74,3 +74,23 @@ ApiResponse {
   message: 'authentication failed'
 }
 ```
+
+* For Success
+
+```javascript
+ApiResponse {
+  statusresponse: 'success',
+  api_response: ApiSuccess {
+    data: {
+      status: 'OK',
+      error: '0',
+      smslog_id: '00000000',
+      queue: '03cc1e906ff9d762c9bd6ba92b9a1494',
+      to: '263777777777'
+    },
+    error_string: null,
+    timestamp: 1609513652
+  },
+  message: 'success'
+}
+```
