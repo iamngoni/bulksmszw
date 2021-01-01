@@ -1,6 +1,6 @@
 {
   "name": "bulksmszw",
-  "version": "1.0.3",
+  "version": "1.0.31",
   "description": "A Helper Library For Sending Text Messages For BulkSmsZimApi (Nodejs Port From @donnc Dart library)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
