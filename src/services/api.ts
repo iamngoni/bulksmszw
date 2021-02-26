@@ -32,10 +32,10 @@ export default class Api {
         webUrl: this.url,
       }).url();
 
-      let result = await axios.post(url);
+      const result = await axios.post(url);
 
       if (result.status === 200) {
-        let response = this.checkApiResponseError(result.data);
+        const response = Api.checkApiResponseError(result.data);
 
         if (response == null) {
           return new ApiResponse({
@@ -45,11 +45,10 @@ export default class Api {
           });
         } else {
           if (response instanceof ApiError) {
-            const error: ApiError = response;
             return new ApiResponse({
               statusresponse: SMSRESPONSE.API_ERROR,
               api_response: response,
-              message: error.error_string,
+              message: response.error_string,
             });
           }
 
@@ -71,13 +70,11 @@ export default class Api {
             }
           }
 
-          if (response instanceof ApiCredits) {
-            return new ApiResponse({
-              statusresponse: SMSRESPONSE.SUCCESS,
-              api_response: response,
-              message: 'success credit',
-            });
-          }
+          return new ApiResponse({
+            statusresponse: SMSRESPONSE.SUCCESS,
+            api_response: response,
+            message: 'success credit',
+          });
         }
       } else {
         return new ApiResponse({
@@ -93,12 +90,6 @@ export default class Api {
         message: 'Error sending bulksmszw request: Error -> ' + error.toString(),
       });
     }
-
-    return new ApiResponse({
-      statusresponse: SMSRESPONSE.ERROR,
-      api_response: null,
-      message: 'null: request not processed',
-    });
   }
 
   /**
@@ -106,9 +97,10 @@ export default class Api {
    * @param response {any}
    * @returns {ApiSuccess | ApiError | ApiCredits | null}
    */
-  private checkApiResponseError(response: any) {
+  private static checkApiResponseError(response: any) {
     try {
       if (response.hasOwnProperty('error_string') && response.error_string != null) {
+        // tslint:disable-next-line:no-console
         console.log('Processing error response from API');
         return new ApiError({
           error_string: response.error_string,
@@ -118,6 +110,7 @@ export default class Api {
         });
       } else {
         if (response.hasOwnProperty('credit')) {
+          // tslint:disable-next-line:no-console
           console.log('Processing credit response for API');
           return new ApiCredits({
             status: response.status,
@@ -129,6 +122,7 @@ export default class Api {
         }
 
         if (response.hasOwnProperty('data')) {
+          // tslint:disable-next-line:no-console
           console.log('Processing success response from API');
           return new ApiSuccess({
             error_string: response.error_string,
@@ -136,10 +130,11 @@ export default class Api {
             timestamp: response.timestamp,
           });
         } else {
-          throw Error('Unknown response');
+          throw new Error('Unknown response');
         }
       }
     } catch (error) {
+      // tslint:disable-next-line:no-console
       console.log(error);
       return null;
     }

@@ -6,8 +6,8 @@ export default class BulkSmsZw {
   private BULKSMS_WEBSERVICE_URL: string = 'http://portal.bulksmsweb.com/index.php?app=ws';
   private SEND_SMS_OPERATION: string = 'pv';
   private SMS_CREDIT_OPERATION: string = 'cr';
-  private key: string;
-  private name: string;
+  private readonly key: string;
+  private readonly name: string;
 
   /**
    *
@@ -23,7 +23,7 @@ export default class BulkSmsZw {
    * @param input [message, recipients, credits]
    * @returns [BulkSmsZwApiResponse]
    */
-  async send(input: messageInput): Promise<ApiResponse> {
+  async send(input: MessageInput): Promise<ApiResponse> {
 
     if (input.message === undefined) {
       const error = new Error('Message is required');
@@ -73,13 +73,11 @@ export default class BulkSmsZw {
       url = this.credit_op();
     }
 
-    const resp = await new Api({
-      url: url,
-      recipients: this.recipientx(input.recipients),
+    return await new Api({
+      url,
+      recipients: BulkSmsZw.recipientx(input.recipients),
       message: input.message + '\n',
     }).sendRequest();
-
-    return resp;
   }
 
   private sms_op(): string {
@@ -90,13 +88,13 @@ export default class BulkSmsZw {
     return this.BULKSMS_WEBSERVICE_URL + '&u=' + this.name + '&h=' + this.key + '&op=' + this.SMS_CREDIT_OPERATION;
   }
 
-  private recipientx(recipients: Array<String>): string {
+  private static recipientx(recipients: string[]): string {
     let listStr: string = '';
-    for (let number of recipients) {
-      if (number == null || number === '') {
+    for (const phoneNumber of recipients) {
+      if (phoneNumber == null || phoneNumber === '') {
         continue;
       }
-      listStr += number.trim() + ',';
+      listStr += phoneNumber.trim() + ',';
     }
 
     listStr = listStr.replace(/,\s*$/, '');
@@ -109,8 +107,8 @@ export interface BulkSmsZwType {
   bulkSmsWebName: string;
 }
 
-export interface messageInput {
+export interface MessageInput {
   message: string;
-  recipients: Array<string>;
-  credits: Boolean;
+  recipients: string[];
+  credits: boolean;
 }
